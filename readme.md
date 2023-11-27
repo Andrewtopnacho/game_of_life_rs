@@ -45,22 +45,6 @@ Conway's Game of Life is a cellular automaton devised by the mathematician John 
     cargo run
     ```
 
-3. Use function keys (F1 to F4) to interact with the simulation.
-
-## Contributing
-
-Contributions are welcome! If you'd like to contribute to the project, please follow these steps:
-
-1. Fork the repository.
-2. Create a new branch for your feature or bug fix.
-3. Make your changes and commit them.
-4. Push your changes to your fork.
-5. Submit a pull request.
-
-## License
-
-This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
-
 ## Acknowledgments
 
 - [macroquad](https://github.com/not-fl3/macroquad) - Simple and easy-to-use game development framework for Rust.
