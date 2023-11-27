@@ -1,10 +1,17 @@
-# game_of_life 
+# game_of_life_rs
 
-A simple implementation of Conway's Game of Life in Rust using the macroquad game development framework.
+A simple implementation of Conway's Game of Life in Rust.
 
-## Overview
+## [Overview](https://en.wikipedia.org/wiki/Conway%27s_Game_of_Life)
 
-Conway's Game of Life is a cellular automaton devised by the mathematician John Conway. The game consists of a grid of cells, each of which can be in one of two states: alive or dead. The state of the cells evolves based on simple rules, creating interesting patterns and behaviors.
+Conway's Game of Life is a cellular automaton created by the mathematician John Conway.
+The game consists of a grid of cells, each of which can be in one of two states: alive or dead.
+The state of the cells evolves based on simple rules.
+- Rules
+  - Any live cell with fewer than two live neighbors dies.
+  - Any live cell with two or three live neighbors lives on to the next generation.
+  - Any live cell with more than three live neighbors dies.
+  - Any dead cell with exactly three live neighbors becomes a live cell.
 
 ## Features
 
@@ -19,27 +26,33 @@ Conway's Game of Life is a cellular automaton devised by the mathematician John 
   - **F4:** Manual Step - Advances the simulation by one generation when auto-play is disabled.
 
 
-- **Visualization:** Visualize the evolving generations of cells with a simple graphical representation using macroquad.
+- **Visualization:** Visualize the evolving generations of cells with a simple graphical representation using macroquad. (More visualizations will be added when this is separated into a library)
 
 ## Example
+ - Macroquad visualization<br>
 <img src="example.gif"></img>
 
 ## Getting Started
 
 ### Prerequisites
 
-- [Rust](https://www.rust-lang.org/)
+- [Install Rust](https://www.rust-lang.org/learn/get-started)
 
 ### Building and Running
 
-1. Clone the repository:
+1. Clone the repository (or download through github):
 
     ```bash
-    git clone https://github.com/your-username/rust-game-of-life.git
-    cd rust-game-of-life
+    git clone https://github.com/Andrewtopnacho/game_of_life_rs.git
     ```
 
-2. Build and run the project:
+2. Navigate to the repository directory
+
+    ```bash
+    cd game_of_life_rs
+    ```
+
+3. Build and run the project:
 
     ```bash
     cargo run
@@ -47,6 +60,6 @@ Conway's Game of Life is a cellular automaton devised by the mathematician John 
 
 ## Acknowledgments
 
-- [macroquad](https://github.com/not-fl3/macroquad) - Simple and easy-to-use game development framework for Rust.
-
 - [Conway's Game of Life](https://en.wikipedia.org/wiki/Conway%27s_Game_of_Life) - Learn more about the fascinating world of cellular automata.
+
+- [macroquad](https://github.com/not-fl3/macroquad) - Simple and easy-to-use game development framework for Rust.
