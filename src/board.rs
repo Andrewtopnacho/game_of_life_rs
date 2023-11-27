@@ -87,10 +87,12 @@ impl Board {
 impl Board {
     pub fn update(&mut self) {
         let buffer = self.clone();
-        for row_index in 0..ROW_COUNT {
-            for column_index in 0..COLUMN_COUNT {
+
+        for (row_index, row) in self.cells.iter_mut().enumerate() {
+            for (column_index, current_cell) in row.iter_mut().enumerate() {
+
                 let neighbor_count = buffer.get_neighbor_count(row_index, column_index);
-                self.cells[row_index][column_index].update(neighbor_count); 
+                current_cell.update(neighbor_count);
             }
         }
     }
