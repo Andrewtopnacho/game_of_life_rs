@@ -10,8 +10,6 @@ async fn main() -> Result<(), Box<dyn std::error::Error>> {
     let mut update_toggle = false;
     
     loop {
-        clear_background(BLACK);
-
         if is_key_pressed(KeyCode::F1) {
             primary_board = Board::random();
         }
