@@ -6,8 +6,6 @@ A simple implementation of Conway's Game of Life in Rust using the macroquad gam
 
 Conway's Game of Life is a cellular automaton devised by the mathematician John Conway. The game consists of a grid of cells, each of which can be in one of two states: alive or dead. The state of the cells evolves based on simple rules, creating interesting patterns and behaviors.
 
-This project is a Rust implementation of the Game of Life, featuring a customizable game board, various control options, and visualization using the macroquad library.
-
 ## Features
 
 - **Customizable Board:** Specify the width and height of the game board, allowing for different grid sizes.
@@ -22,6 +20,9 @@ This project is a Rust implementation of the Game of Life, featuring a customiza
 
 
 - **Visualization:** Visualize the evolving generations of cells with a simple graphical representation using macroquad.
+
+## Example
+<img src="example.gif"></img>
 
 ## Getting Started
 
