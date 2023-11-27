@@ -1,4 +1,3 @@
-use rand::random;
 use crate::cell::Cell;
 
 const COLUMN_COUNT: usize = 10;
@@ -32,6 +31,8 @@ impl std::default::Default for Board {
 // constructors
 impl Board {
     pub fn random() -> Board {
+        use rand::random;
+
         let mut random_board = Board::default();
         for row in &mut random_board.cells {
             for cell in row {
