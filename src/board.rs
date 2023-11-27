@@ -5,29 +5,8 @@ pub struct Board<const WIDTH: usize, const HEIGHT: usize> {
     cells: [[Cell; WIDTH]; HEIGHT],
 }
 
-// traits
-impl<const WIDTH: usize, const HEIGHT: usize> std::fmt::Display for Board<WIDTH, HEIGHT> {
-    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
-        for row in &self.cells {
-            write!(f, "[")?;
-            for cell in row {
-                write!(f, "{}", cell)?;
-            }
-            writeln!(f, "]")?;
-        }
-        Ok(())
-    }
-}
-impl<const WIDTH: usize, const HEIGHT: usize> std::default::Default for Board<WIDTH, HEIGHT> {
-    fn default() -> Self {
-        Board { 
-            cells: [[Cell::default(); WIDTH]; HEIGHT], 
-        }
-    }
-}
-
-// constructors
 impl<const WIDTH: usize, const HEIGHT: usize> Board<WIDTH, HEIGHT> {
+    // constructors
     pub fn random() -> Board<WIDTH, HEIGHT> {
         use rand::random;
 
@@ -41,7 +20,6 @@ impl<const WIDTH: usize, const HEIGHT: usize> Board<WIDTH, HEIGHT> {
         }
         random_board
     }
-
     pub fn glider_gun() -> Board<WIDTH, HEIGHT> {
         use Cell::{Alive as O, Dead as X};
 
@@ -79,25 +57,22 @@ impl<const WIDTH: usize, const HEIGHT: usize> Board<WIDTH, HEIGHT> {
         
         Board { cells }
     }
-}
-
-// actions
-impl<const WIDTH: usize, const HEIGHT: usize> Board<WIDTH, HEIGHT> {
+    
+    // actions
     pub fn update(&mut self) {
         let buffer = self.clone();
-
+    
         for (row_index, row) in self.cells.iter_mut().enumerate() {
             for (column_index, current_cell) in row.iter_mut().enumerate() {
-
+    
                 let neighbor_count = buffer.get_neighbor_count(row_index, column_index);
                 current_cell.update(neighbor_count);
             }
         }
     }
-
     pub fn macroquad_draw(&self) {
         use macroquad::prelude::*;
-
+    
         const CELL_SIZE: f32 = 20.0;
         const BORDER_SIZE: f32 = 1.0;
         
@@ -105,7 +80,7 @@ impl<const WIDTH: usize, const HEIGHT: usize> Board<WIDTH, HEIGHT> {
         const ALIVE_COLOR: Color = YELLOW;
         const DEAD_COLOR: Color = LIGHTGRAY;
         
-
+    
         for (row_index, row) in self.cells.iter().enumerate() {
             for (column_index, &current_cell) in row.iter().enumerate() {
                 
@@ -116,7 +91,7 @@ impl<const WIDTH: usize, const HEIGHT: usize> Board<WIDTH, HEIGHT> {
                     } else {
                         DEAD_COLOR
                     };
-
+    
                 draw_rectangle(
                     cell_position.x,
                     cell_position.y,
@@ -124,7 +99,7 @@ impl<const WIDTH: usize, const HEIGHT: usize> Board<WIDTH, HEIGHT> {
                     CELL_SIZE,
                     BORDER_COLOR,
                 );
-
+    
                 draw_rectangle(
                     cell_position.x + BORDER_SIZE,
                     cell_position.y + BORDER_SIZE,
@@ -135,10 +110,8 @@ impl<const WIDTH: usize, const HEIGHT: usize> Board<WIDTH, HEIGHT> {
             }
         }
     }
-}
-
-// helper functions
-impl<const WIDTH: usize, const HEIGHT: usize> Board<WIDTH, HEIGHT> {
+    
+    // helper functions
     fn get_neighbor_count(&self, row_index: usize, column_index: usize) -> usize {
         
         let top_left = if row_index != 0 && column_index != 0 {
@@ -195,7 +168,7 @@ impl<const WIDTH: usize, const HEIGHT: usize> Board<WIDTH, HEIGHT> {
             }
             None => &Cell::Dead,
         };
-
+    
         let mut amount_alive = 0;
         if let Cell::Alive = top_left {
             amount_alive += 1;
@@ -222,5 +195,26 @@ impl<const WIDTH: usize, const HEIGHT: usize> Board<WIDTH, HEIGHT> {
             amount_alive += 1;
         }
         amount_alive
+    }
+}
+
+// traits
+impl<const WIDTH: usize, const HEIGHT: usize> std::fmt::Display for Board<WIDTH, HEIGHT> {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        for row in &self.cells {
+            write!(f, "[")?;
+            for cell in row {
+                write!(f, "{}", cell)?;
+            }
+            writeln!(f, "]")?;
+        }
+        Ok(())
+    }
+}
+impl<const WIDTH: usize, const HEIGHT: usize> std::default::Default for Board<WIDTH, HEIGHT> {
+    fn default() -> Self {
+        Board { 
+            cells: [[Cell::default(); WIDTH]; HEIGHT], 
+        }
     }
 }
