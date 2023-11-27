@@ -42,6 +42,44 @@ impl Board {
         }
         random_board
     }
+
+    pub fn glider_gun() -> Board {
+        use Cell::{Alive as O, Dead as X};
+
+        let glider_gun = [
+    //        0  1  2  3  4  5  6  7  8  9  10 11 12 13 14 15 16 17 18 19 20 21 22 23 24 25 26 27 28 19 30 31 32 33 34 35 36 37
+    /*0*/   [ X, X, X, X, X, X, X, X, X, X, X, X, X, X, X, X, X, X, X, X, X, X, X, X, X, X, X, X, X, X, X, X, X, X, X, X, X, X, ],
+    /*1*/   [ X, X, X, X, X, X, X, X, X, X, X, X, X, X, X, X, X, X, X, X, X, X, X, X, X, O, X, X, X, X, X, X, X, X, X, X, X, X, ],
+    /*2*/   [ X, X, X, X, X, X, X, X, X, X, X, X, X, X, X, X, X, X, X, X, X, X, X, O, X, O, X, X, X, X, X, X, X, X, X, X, X, X, ],
+    /*3*/   [ X, X, X, X, X, X, X, X, X, X, X, X, X, O, O, X, X, X, X, X, X, O, O, X, X, X, X, X, X, X, X, X, X, X, X, O, O, X, ],
+    /*4*/   [ X, X, X, X, X, X, X, X, X, X, X, X, O, X, X, X, O, X, X, X, X, O, O, X, X, X, X, X, X, X, X, X, X, X, X, O, O, X, ],
+    /*5*/   [ X, O, O, X, X, X, X, X, X, X, X, O, X, X, X, X, X, O, X, X, X, O, O, X, X, X, X, X, X, X, X, X, X, X, X, X, X, X, ],
+    /*6*/   [ X, O, O, X, X, X, X, X, X, X, X, O, X, X, X, O, X, O, O, X, X, X, X, O, X, O, X, X, X, X, X, X, X, X, X, X, X, X, ],
+    /*7*/   [ X, X, X, X, X, X, X, X, X, X, X, O, X, X, X, X, X, O, X, X, X, X, X, X, X, O, X, X, X, X, X, X, X, X, X, X, X, X, ],
+    /*8*/   [ X, X, X, X, X, X, X, X, X, X, X, X, O, X, X, X, O, X, X, X, X, X, X, X, X, X, X, X, X, X, X, X, X, X, X, X, X, X, ],
+    /*9*/   [ X, X, X, X, X, X, X, X, X, X, X, X, X, O, O, X, X, X, X, X, X, X, X, X, X, X, X, X, X, X, X, X, X, X, X, X, X, X, ],
+    /*10*/  [ X, X, X, X, X, X, X, X, X, X, X, X, X, X, X, X, X, X, X, X, X, X, X, X, X, X, X, X, X, X, X, X, X, X, X, X, X, X, ],
+        ];   
+
+        let mut cells = [[Cell::Dead; COLUMN_COUNT]; ROW_COUNT];
+
+        for (row_index, row) in cells.iter_mut().enumerate() {
+            for (column_index, cell) in row.iter_mut().enumerate() {
+
+                let glider_gun_cell = match glider_gun.get(column_index) {
+                    Some(glider_gun_row) => match glider_gun_row.get(row_index) {
+                        Some(glider_gun_cell) => glider_gun_cell,
+                        None => continue,
+                    },
+                    None => continue,
+                };
+
+                *cell = *glider_gun_cell;
+            }
+        }
+        
+        Board { cells }
+    }
 }
 
 // actions
