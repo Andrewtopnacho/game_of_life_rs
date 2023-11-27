@@ -1,15 +1,12 @@
 use crate::cell::Cell;
 
-const COLUMN_COUNT: usize = 100;
-const ROW_COUNT: usize = 100;
-
 #[derive(Clone, Copy)]
-pub struct Board {
-    cells: [[Cell; COLUMN_COUNT]; ROW_COUNT],
+pub struct Board<const WIDTH: usize, const HEIGHT: usize> {
+    cells: [[Cell; WIDTH]; HEIGHT],
 }
 
 // traits
-impl std::fmt::Display for Board {
+impl<const WIDTH: usize, const HEIGHT: usize> std::fmt::Display for Board<WIDTH, HEIGHT> {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         for row in &self.cells {
             write!(f, "[")?;
@@ -21,17 +18,17 @@ impl std::fmt::Display for Board {
         Ok(())
     }
 }
-impl std::default::Default for Board {
+impl<const WIDTH: usize, const HEIGHT: usize> std::default::Default for Board<WIDTH, HEIGHT> {
     fn default() -> Self {
         Board { 
-            cells: [[Cell::default(); COLUMN_COUNT]; ROW_COUNT], 
+            cells: [[Cell::default(); WIDTH]; HEIGHT], 
         }
     }
 }
 
 // constructors
-impl Board {
-    pub fn random() -> Board {
+impl<const WIDTH: usize, const HEIGHT: usize> Board<WIDTH, HEIGHT> {
+    pub fn random() -> Board<WIDTH, HEIGHT> {
         use rand::random;
 
         let mut random_board = Board::default();
@@ -45,7 +42,7 @@ impl Board {
         random_board
     }
 
-    pub fn glider_gun() -> Board {
+    pub fn glider_gun() -> Board<WIDTH, HEIGHT> {
         use Cell::{Alive as O, Dead as X};
 
         let glider_gun = [
@@ -63,7 +60,7 @@ impl Board {
     /*10*/  [ X, X, X, X, X, X, X, X, X, X, X, X, X, X, X, X, X, X, X, X, X, X, X, X, X, X, X, X, X, X, X, X, X, X, X, X, X, X, ],
         ];   
 
-        let mut cells = [[Cell::Dead; COLUMN_COUNT]; ROW_COUNT];
+        let mut cells = [[Cell::Dead; WIDTH]; HEIGHT];
 
         for (row_index, row) in cells.iter_mut().enumerate() {
             for (column_index, cell) in row.iter_mut().enumerate() {
@@ -85,7 +82,7 @@ impl Board {
 }
 
 // actions
-impl Board {
+impl<const WIDTH: usize, const HEIGHT: usize> Board<WIDTH, HEIGHT> {
     pub fn update(&mut self) {
         let buffer = self.clone();
 
@@ -141,7 +138,7 @@ impl Board {
 }
 
 // helper functions
-impl Board {
+impl<const WIDTH: usize, const HEIGHT: usize> Board<WIDTH, HEIGHT> {
     fn get_neighbor_count(&self, row_index: usize, column_index: usize) -> usize {
         
         let top_left = if row_index != 0 && column_index != 0 {
