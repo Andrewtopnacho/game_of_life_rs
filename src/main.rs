@@ -7,7 +7,7 @@ use macroquad::prelude::*;
 #[macroquad::main("life")]
 async fn main() {
     let mut board = Board::<100, 100>::random();
-    let mut update_toggle = false;
+    let mut play = false;
     
     loop {
         if is_key_pressed(KeyCode::F1) {
@@ -17,9 +17,9 @@ async fn main() {
             board = Board::glider_gun()
         }
         if is_key_pressed(KeyCode::F3) {
-           update_toggle = !update_toggle;
+           play = !play;
         }
-        if is_key_pressed(KeyCode::F2) || update_toggle {
+        if is_key_pressed(KeyCode::F2) || play {
             board.update();
         }
 
