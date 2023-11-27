@@ -29,6 +29,4 @@ async fn main() -> Result<(), Box<dyn std::error::Error>> {
 
         next_frame().await;
     }
-
-    Ok(())
 }
