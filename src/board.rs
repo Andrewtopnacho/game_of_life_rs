@@ -7,6 +7,7 @@ const ROW_COUNT: usize = 100;
 pub struct Board {
     cells: [[Cell; COLUMN_COUNT]; ROW_COUNT],
 }
+
 // traits
 impl std::fmt::Display for Board {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
