@@ -6,7 +6,7 @@ use macroquad::prelude::*;
 
 #[macroquad::main("life")]
 async fn main() -> Result<(), Box<dyn std::error::Error>> {
-    let mut primary_board = Board::random();
+    let mut primary_board = Board::<100, 100>::random();
     let mut update_toggle = false;
     
     loop {
