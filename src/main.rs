@@ -1,28 +1,33 @@
 mod cell;
 mod board;
 use crate::board::Board;
-fn main() -> Result<(), Box<dyn std::error::Error>> {
-    let mut game_board = Board::random();
+
+use macroquad::prelude::*;
+
+#[macroquad::main("life")]
+async fn main() -> Result<(), Box<dyn std::error::Error>> {
+    let mut primary_board = Board::random();
+    let mut update_toggle = false;
     loop {
-        println!("{}", game_board);
-        let input = get_input("Type \"exit\" to quit or press \"ENTER\" to continue")?;
-        match input.to_lowercase().as_str() {
-            "exit" => break,
-            _ => game_board.update(),
+        clear_background(BLACK);
+
+        if is_key_pressed(KeyCode::F1) {
+            primary_board = Board::random();
+            update_toggle = false;
         }
 
+        if is_key_pressed(KeyCode::F3) {
+           update_toggle = !update_toggle;
+        }
+
+        if is_key_pressed(KeyCode::F2) || update_toggle {
+            primary_board.update();
+        }
+
+        primary_board.macroquad_draw();
+
+        next_frame().await;
     }
+
     Ok(())
-}
-
-fn get_input(prompt: &str) -> Result<String, std::io::Error> {
-    use std::io::{stdin, stdout, Write};
-    
-    stdout().write(prompt.as_bytes())?;
-    stdout().flush()?;
-    
-    let mut input: String = String::new();   
-    stdin().read_line(&mut input)?;
-
-    Ok(input.trim().to_string())
 }
