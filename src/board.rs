@@ -35,7 +35,7 @@ impl Board {
         let mut random_board = Board::default();
         for row in &mut random_board.cells {
             for cell in row {
-                if random::<usize>() % 2 == 0 {
+                if random::<usize>() % 5 == 0 {
                     cell.change_state();
                 }
             }
