@@ -1,7 +1,7 @@
 use crate::cell::Cell;
 
-const COLUMN_COUNT: usize = 10;
-const ROW_COUNT: usize = 10;
+const COLUMN_COUNT: usize = 100;
+const ROW_COUNT: usize = 100;
 
 #[derive(Clone, Copy)]
 pub struct Board {
@@ -94,7 +94,7 @@ impl Board {
             }
         }
     }
-    
+
 }
 
 // helper functions
