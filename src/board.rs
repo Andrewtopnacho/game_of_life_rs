@@ -8,6 +8,7 @@ const ROW_COUNT: usize = 10;
 pub struct Board {
     cells: [[Cell; COLUMN_COUNT]; ROW_COUNT],
 }
+// traits
 impl std::fmt::Display for Board {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         for row in &self.cells {
@@ -27,6 +28,8 @@ impl std::default::Default for Board {
         }
     }
 }
+
+// constructors
 impl Board {
     pub fn random() -> Board {
         let mut random_board = Board::default();
@@ -40,6 +43,8 @@ impl Board {
         random_board
     }
 }
+
+// actions
 impl Board {
     pub fn update(&mut self) {
         let buffer = self.clone();
@@ -50,7 +55,11 @@ impl Board {
             }
         }
     }
+    
+}
 
+// helper functions
+impl Board {
     fn get_neighbor_count(&self, row_index: usize, column_index: usize) -> usize {
         
         let top_left = if row_index != 0 && column_index != 0 {
