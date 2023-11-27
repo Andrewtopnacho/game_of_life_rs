@@ -95,6 +95,46 @@ impl Board {
         }
     }
 
+    pub fn macroquad_draw(&self) {
+        use macroquad::prelude::*;
+
+        const CELL_SIZE: f32 = 20.0;
+        const BORDER_SIZE: f32 = 1.0;
+        
+        const BORDER_COLOR: Color = BLACK;
+        const ALIVE_COLOR: Color = YELLOW;
+        const DEAD_COLOR: Color = LIGHTGRAY;
+        
+
+        for (row_index, row) in self.cells.iter().enumerate() {
+            for (column_index, &current_cell) in row.iter().enumerate() {
+                
+                let cell_position = Vec2::new(row_index as f32, column_index as f32) * CELL_SIZE;
+                let cell_color = 
+                    if current_cell == Cell::Alive {
+                        ALIVE_COLOR
+                    } else {
+                        DEAD_COLOR
+                    };
+
+                draw_rectangle(
+                    cell_position.x,
+                    cell_position.y,
+                    CELL_SIZE,
+                    CELL_SIZE,
+                    BORDER_COLOR,
+                );
+
+                draw_rectangle(
+                    cell_position.x + BORDER_SIZE,
+                    cell_position.y + BORDER_SIZE,
+                    CELL_SIZE - BORDER_SIZE,
+                    CELL_SIZE - BORDER_SIZE,
+                    cell_color 
+                );
+            }
+        }
+    }
 }
 
 // helper functions
