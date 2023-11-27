@@ -2,7 +2,9 @@ use rand::random;
 use crate::cell::Cell;
 
 const COLUMN_COUNT: usize = 10;
-const ROW_COUNT: usize = 10;  
+const ROW_COUNT: usize = 10;
+
+#[derive(Clone, Copy)]
 pub struct Board {
     cells: [[Cell; COLUMN_COUNT]; ROW_COUNT],
 }
@@ -40,9 +42,10 @@ impl Board {
 }
 impl Board {
     pub fn update(&mut self) {
+        let buffer = self.clone();
         for row_index in 0..ROW_COUNT {
             for column_index in 0..COLUMN_COUNT {
-                let neighbor_count = self.get_neighbor_count(row_index, column_index);
+                let neighbor_count = buffer.get_neighbor_count(row_index, column_index);
                 self.cells[row_index][column_index].update(neighbor_count); 
             }
         }
