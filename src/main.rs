@@ -15,14 +15,14 @@ async fn main() -> Result<(), Box<dyn std::error::Error>> {
         if is_key_pressed(KeyCode::F1) {
             primary_board = Board::random();
         }
+        else if is_key_pressed(KeyCode::F4) {
+            primary_board = Board::glider_gun()
+        }
         if is_key_pressed(KeyCode::F2) || update_toggle {
             primary_board.update();
         }
         if is_key_pressed(KeyCode::F3) {
            update_toggle = !update_toggle;
-        }
-        if is_key_pressed(KeyCode::F4) {
-            primary_board = Board::glider_gun()
         }
 
         primary_board.macroquad_draw();
