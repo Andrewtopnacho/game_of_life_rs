@@ -13,7 +13,6 @@ async fn main() -> Result<(), Box<dyn std::error::Error>> {
 
         if is_key_pressed(KeyCode::F1) {
             primary_board = Board::random();
-            update_toggle = false;
         }
 
         if is_key_pressed(KeyCode::F3) {
