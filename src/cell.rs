@@ -1,22 +1,11 @@
-#[derive(Clone, Copy, PartialEq)]
+#[derive(Clone, Copy, Default, PartialEq)]
 pub enum Cell {
     Alive,
+    
+    #[default]
     Dead,
 }
 
-impl std::default::Default for Cell {
-    fn default() -> Self {
-        Cell::Dead
-    }
-}
-impl std::fmt::Display for Cell {
-    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
-        write!(f, "{}", match self {
-            Cell::Alive => "O",
-            Cell::Dead => "X",
-        })
-    }
-}
 impl Cell {
     pub fn make_dead(&mut self) {
        *self = Cell::Dead;
@@ -49,5 +38,15 @@ impl Cell {
                 }
             },
         };
+    }
+}
+
+// traits
+impl std::fmt::Display for Cell {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        write!(f, "{}", match self {
+            Cell::Alive => "O",
+            Cell::Dead => "X",
+        })
     }
 }
