@@ -21,7 +21,10 @@ async fn main() -> Result<(), Box<dyn std::error::Error>> {
         if is_key_pressed(KeyCode::F3) {
            update_toggle = !update_toggle;
         }
-        
+        if is_key_pressed(KeyCode::F4) {
+            primary_board = Board::glider_gun()
+        }
+
         primary_board.macroquad_draw();
 
         next_frame().await;
