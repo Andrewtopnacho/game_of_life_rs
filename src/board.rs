@@ -132,72 +132,64 @@ impl<const WIDTH: usize, const HEIGHT: usize> Board<WIDTH, HEIGHT> {
 
         let mut neighbor_count = 0;
         
-        // top left
         neighbor_count += match self.get_cell(row_index - 1, column_index - 1) {
-            Some(neighbor) => match neighbor {
+            Some(top_left_neighbor) => match top_left_neighbor {
                 Cell::Alive => 1,
                 Cell::Dead => 0,
             },
             None => 0,
         };
 
-        // top
         neighbor_count += match self.get_cell(row_index - 1, column_index) {
-            Some(neighbor) => match neighbor {
+            Some(top_neighbor) => match top_neighbor {
                 Cell::Alive => 1,
                 Cell::Dead => 0,
             },
             None => 0,
         };
 
-        // top right
         neighbor_count += match self.get_cell(row_index - 1, column_index + 1) {
-            Some(neighbor) => match neighbor {
+            Some(top_right_neighbor) => match top_right_neighbor {
                 Cell::Alive => 1,
                 Cell::Dead => 0,
             },
             None => 0,
         };
 
-        // left
         neighbor_count += match self.get_cell(row_index, column_index - 1) {
-            Some(neighbor) => match neighbor {
+            Some(left_neighbor) => match left_neighbor {
                 Cell::Alive => 1,
                 Cell::Dead => 0,
             },
             None => 0,
         };
 
-        // right
         neighbor_count += match self.get_cell(row_index, column_index + 1) {
-            Some(neighbor) => match neighbor {
+            Some(right_neighbor) => match right_neighbor {
                 Cell::Alive => 1,
                 Cell::Dead => 0,
             },
             None => 0,
         };
 
-        // bottom left
         neighbor_count += match self.get_cell(row_index + 1, column_index - 1) {
-            Some(neighbor) => match neighbor {
+            Some(bottom_left_neighbor) => match bottom_left_neighbor {
                 Cell::Alive => 1,
                 Cell::Dead => 0,
             },
             None => 0,
         };
 
-        // bottom
         neighbor_count += match self.get_cell(row_index + 1, column_index) {
-            Some(neighbor) => match neighbor {
+            Some(bottom_neighbor) => match bottom_neighbor {
                 Cell::Alive => 1,
                 Cell::Dead => 0,
             },
             None => 0,
         };
 
-        // bottom right
         neighbor_count += match self.get_cell(row_index + 1, column_index + 1) {
-            Some(neighbor) => match neighbor {
+            Some(bottom_right_neighbor) => match bottom_right_neighbor {
                 Cell::Alive => 1,
                 Cell::Dead => 0,
             },
