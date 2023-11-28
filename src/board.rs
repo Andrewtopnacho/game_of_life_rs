@@ -113,88 +113,127 @@ impl<const WIDTH: usize, const HEIGHT: usize> Board<WIDTH, HEIGHT> {
     
     // helper functions
     fn get_neighbor_count(&self, row_index: usize, column_index: usize) -> usize {
+        let mut neighbor_count = 0;
         
-        let top_left = if row_index != 0 && column_index != 0 {
+        // top left
+        neighbor_count += if row_index != 0 && column_index != 0 {
             match self.cells.get(row_index - 1) {
-            Some(row) => match row.get(column_index - 1) {
-                Some(cell) => cell,
-                None => &Cell::Dead,
-            },
-            None => &Cell::Dead,
+                Some(row) => match row.get(column_index - 1) {
+                    Some(neighbor) => match neighbor {
+                        Cell::Alive => 1,
+                        Cell::Dead => 0,
+                    },
+                    None => 0,
+                },
+                None => 0,
             }
-        } else { &Cell::Dead };  
-        let top = if row_index != 0 {
+        }
+        else {
+            0
+        };
+
+        // top
+        neighbor_count += if row_index != 0 {
             match self.cells.get(row_index - 1) {
-                Some(row) => &row[column_index],
-                None => &Cell::Dead,                   
+                Some(row) => match row.get(column_index) {
+                    Some(neighbor) => match neighbor {
+                        Cell::Alive => 1,
+                        Cell::Dead => 0,
+                    },
+                    None => 0,
+                },
+                None => 0,
             }
-        } else { &Cell::Dead };
-        let top_right = if row_index != 0 {
+        } else { 
+            0
+        };
+
+        // top right
+        neighbor_count += if row_index != 0 {
             match self.cells.get(row_index - 1) {
                 Some(row) => match row.get(column_index + 1) {
-                    Some(cell) => cell,
-                    None => &Cell::Dead,
+                    Some(neighbor) => match neighbor {
+                        Cell::Alive => 1,
+                        Cell::Dead => 0,
+                    },
+                    None => 0,
                 }
-                None => &Cell::Dead,
+                None => 0,
             }
-        } else { &Cell::Dead };
-        let left = if column_index != 0 {
-            match self.cells[row_index].get(column_index - 1) {
-                Some(cell) => cell,
-                None => &Cell::Dead,
-            }
-        } else { &Cell::Dead };
-        let right = match self.cells[row_index].get(column_index + 1) {
-            Some(cell) => cell,
-            None => &Cell::Dead,
+        } else { 
+            0
         };
-        let bottom_left = match self.cells.get(row_index + 1) {
+
+        // left
+        neighbor_count += if column_index != 0 {
+            match self.cells.get(row_index) {
+                Some(row) => match row.get(column_index - 1) {
+                    Some(neighbor) => match neighbor {
+                        Cell::Alive => 1,
+                        Cell::Dead => 0,
+                    },
+                    None => 0,
+                },
+                None => 0,
+            }
+        } else { 
+            0
+        };
+
+        // right
+        neighbor_count += match self.cells.get(row_index) {
+            Some(row) => match row.get(column_index + 1) {
+                Some(neighbor) => match neighbor {
+                        Cell::Alive => 1,
+                        Cell::Dead => 0,
+                    },
+                None => 0,
+            },
+            None => 0,
+        };
+
+        // bottom left
+        neighbor_count += match self.cells.get(row_index + 1) {
             Some(row) => if column_index != 0 {
                 match row.get(column_index - 1) {
-                    Some(cell) => cell,
-                    None => &Cell::Dead,
+                    Some(neighbor) => match neighbor {
+                        Cell::Alive => 1,
+                        Cell::Dead => 0,
+                    },
+                    None => 0,
                 }
-            } else { &Cell::Dead },
-            None => &Cell::Dead,
-        };
-        let bottom = match self.cells.get(row_index + 1) {
-            Some(row) => &row[column_index],
-            None => &Cell::Dead,
-        };
-        let bottom_right = match self.cells.get(row_index + 1) {
-            Some(row) => match row.get(column_index + 1) {
-                Some(cell) => cell,
-                None => &Cell::Dead,
             }
-            None => &Cell::Dead,
+            else {
+                0
+            },
+            None => 0,
         };
-    
-        let mut amount_alive = 0;
-        if let Cell::Alive = top_left {
-            amount_alive += 1;
-        }
-        if let Cell::Alive = top {
-            amount_alive += 1;
-        }
-        if let Cell::Alive = top_right {
-            amount_alive += 1;
-        }
-        if let Cell::Alive = left {
-            amount_alive += 1;
-        }
-        if let Cell::Alive = right {
-            amount_alive += 1;    
-        }
-        if let Cell::Alive = bottom_left {
-            amount_alive += 1;
-        }
-        if let Cell::Alive = bottom {
-            amount_alive += 1;
-        }
-        if let Cell::Alive = bottom_right {
-            amount_alive += 1;
-        }
-        amount_alive
+
+        // bottom
+        neighbor_count += match self.cells.get(row_index + 1) {
+            Some(row) => match row.get(column_index) {
+                Some(neighbor) => match neighbor {
+                    Cell::Alive => 1,
+                    Cell::Dead => 0,
+                },
+                None => 0,
+            },
+            None => 0,
+        };
+
+        // bottom right
+        neighbor_count += match self.cells.get(row_index + 1) {
+            Some(row) => match row.get(column_index + 1) {
+                Some(neighbor) => match neighbor {
+                    Cell::Alive => 1,
+                    Cell::Dead => 0,
+                },
+                None => 0,
+            }
+            None => 0,
+        };
+        
+        neighbor_count
     }
 }
 
