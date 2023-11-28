@@ -83,28 +83,26 @@ impl<const WIDTH: usize, const HEIGHT: usize> Board<WIDTH, HEIGHT> {
         for (row_index, row) in self.cells.iter().enumerate() {
             for (column_index, &current_cell) in row.iter().enumerate() {
                 
-                let current_cell_position = Vec2::new(row_index as f32, column_index as f32) * CELL_SIZE;
-                let current_cell_color = 
-                    if current_cell == Cell::Alive {
-                        ALIVE_COLOR
-                    } else {
-                        DEAD_COLOR
-                    };
+                let cell_top_left = Vec2::new(row_index as f32, column_index as f32) * CELL_SIZE;
     
                 draw_rectangle(
-                    current_cell_position.x,
-                    current_cell_position.y,
+                    cell_top_left.x,
+                    cell_top_left.y,
                     CELL_SIZE,
                     CELL_SIZE,
                     BORDER_COLOR,
                 );
     
                 draw_rectangle(
-                    current_cell_position.x + BORDER_SIZE,
-                    current_cell_position.y + BORDER_SIZE,
+                    cell_top_left.x + BORDER_SIZE,
+                    cell_top_left.y + BORDER_SIZE,
                     CELL_SIZE - BORDER_SIZE,
                     CELL_SIZE - BORDER_SIZE,
-                    current_cell_color 
+                    if current_cell.is_alive() {
+                        ALIVE_COLOR
+                    } else {
+                        DEAD_COLOR
+                    } 
                 );
             }
         }
