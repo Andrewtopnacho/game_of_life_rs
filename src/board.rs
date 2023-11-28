@@ -71,7 +71,14 @@ impl<const WIDTH: usize, const HEIGHT: usize> Board<WIDTH, HEIGHT> {
         }
     }
     pub fn macroquad_draw(&self) {
-        use macroquad::prelude::*;
+        use macroquad::prelude::{
+            Color,
+            BLACK,
+            YELLOW,
+            LIGHTGRAY,
+            Vec2,
+            draw_rectangle,
+        };
     
         const CELL_SIZE: f32 = 20.0;
         const BORDER_SIZE: f32 = 1.0;
