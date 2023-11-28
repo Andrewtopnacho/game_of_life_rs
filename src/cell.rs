@@ -6,7 +6,15 @@ pub enum Cell {
     Dead,
 }
 
-impl Cell {
+impl Cell {   
+
+    pub fn is_alive(&self) -> bool {
+        match self {
+            Cell::Alive => true,
+            Cell::Dead => false,
+        }
+    }
+
     pub fn make_dead(&mut self) {
        *self = Cell::Dead;
     }
