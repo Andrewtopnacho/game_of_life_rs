@@ -79,7 +79,6 @@ impl<const WIDTH: usize, const HEIGHT: usize> Board<WIDTH, HEIGHT> {
         const BORDER_COLOR: Color = BLACK;
         const ALIVE_COLOR: Color = YELLOW;
         const DEAD_COLOR: Color = LIGHTGRAY;
-        
     
         for (row_index, row) in self.cells.iter().enumerate() {
             for (column_index, &current_cell) in row.iter().enumerate() {
