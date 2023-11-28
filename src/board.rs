@@ -124,7 +124,6 @@ impl<const WIDTH: usize, const HEIGHT: usize> Board<WIDTH, HEIGHT> {
             None => None,
         }
     }
-
     fn get_neighbor_count(&self, row_index: usize, column_index: usize) -> usize {
         let row_index = row_index as isize;
         let column_index = column_index as isize;
