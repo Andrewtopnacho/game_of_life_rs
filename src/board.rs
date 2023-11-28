@@ -112,124 +112,95 @@ impl<const WIDTH: usize, const HEIGHT: usize> Board<WIDTH, HEIGHT> {
     }
     
     // helper functions
+    fn get_cell(&self, row_index: isize, column_index: isize) -> Option<Cell> {
+        if row_index < 0 || column_index < 0 {
+            return None;
+        }
+
+        match self.cells.get(row_index as usize) {
+            Some(row) => match row.get(column_index as usize) {
+                Some(cell) => Some(*cell),
+                None => None,
+            },
+            None => None,
+        }
+    }
+
     fn get_neighbor_count(&self, row_index: usize, column_index: usize) -> usize {
+        let row_index = row_index as isize;
+        let column_index = column_index as isize;
+
         let mut neighbor_count = 0;
         
         // top left
-        neighbor_count += if row_index != 0 && column_index != 0 {
-            match self.cells.get(row_index - 1) {
-                Some(row) => match row.get(column_index - 1) {
-                    Some(neighbor) => match neighbor {
-                        Cell::Alive => 1,
-                        Cell::Dead => 0,
-                    },
-                    None => 0,
-                },
-                None => 0,
-            }
-        }
-        else {
-            0
+        neighbor_count += match self.get_cell(row_index - 1, column_index - 1) {
+            Some(neighbor) => match neighbor {
+                Cell::Alive => 1,
+                Cell::Dead => 0,
+            },
+            None => 0,
         };
 
         // top
-        neighbor_count += if row_index != 0 {
-            match self.cells.get(row_index - 1) {
-                Some(row) => match row.get(column_index) {
-                    Some(neighbor) => match neighbor {
-                        Cell::Alive => 1,
-                        Cell::Dead => 0,
-                    },
-                    None => 0,
-                },
-                None => 0,
-            }
-        } else { 
-            0
+        neighbor_count += match self.get_cell(row_index - 1, column_index) {
+            Some(neighbor) => match neighbor {
+                Cell::Alive => 1,
+                Cell::Dead => 0,
+            },
+            None => 0,
         };
 
         // top right
-        neighbor_count += if row_index != 0 {
-            match self.cells.get(row_index - 1) {
-                Some(row) => match row.get(column_index + 1) {
-                    Some(neighbor) => match neighbor {
-                        Cell::Alive => 1,
-                        Cell::Dead => 0,
-                    },
-                    None => 0,
-                }
-                None => 0,
-            }
-        } else { 
-            0
+        neighbor_count += match self.get_cell(row_index - 1, column_index + 1) {
+            Some(neighbor) => match neighbor {
+                Cell::Alive => 1,
+                Cell::Dead => 0,
+            },
+            None => 0,
         };
 
         // left
-        neighbor_count += if column_index != 0 {
-            match self.cells.get(row_index) {
-                Some(row) => match row.get(column_index - 1) {
-                    Some(neighbor) => match neighbor {
-                        Cell::Alive => 1,
-                        Cell::Dead => 0,
-                    },
-                    None => 0,
-                },
-                None => 0,
-            }
-        } else { 
-            0
+        neighbor_count += match self.get_cell(row_index, column_index - 1) {
+            Some(neighbor) => match neighbor {
+                Cell::Alive => 1,
+                Cell::Dead => 0,
+            },
+            None => 0,
         };
 
         // right
-        neighbor_count += match self.cells.get(row_index) {
-            Some(row) => match row.get(column_index + 1) {
-                Some(neighbor) => match neighbor {
-                        Cell::Alive => 1,
-                        Cell::Dead => 0,
-                    },
-                None => 0,
+        neighbor_count += match self.get_cell(row_index, column_index + 1) {
+            Some(neighbor) => match neighbor {
+                Cell::Alive => 1,
+                Cell::Dead => 0,
             },
             None => 0,
         };
 
         // bottom left
-        neighbor_count += match self.cells.get(row_index + 1) {
-            Some(row) => if column_index != 0 {
-                match row.get(column_index - 1) {
-                    Some(neighbor) => match neighbor {
-                        Cell::Alive => 1,
-                        Cell::Dead => 0,
-                    },
-                    None => 0,
-                }
-            }
-            else {
-                0
+        neighbor_count += match self.get_cell(row_index + 1, column_index - 1) {
+            Some(neighbor) => match neighbor {
+                Cell::Alive => 1,
+                Cell::Dead => 0,
             },
             None => 0,
         };
 
         // bottom
-        neighbor_count += match self.cells.get(row_index + 1) {
-            Some(row) => match row.get(column_index) {
-                Some(neighbor) => match neighbor {
-                    Cell::Alive => 1,
-                    Cell::Dead => 0,
-                },
-                None => 0,
+        neighbor_count += match self.get_cell(row_index + 1, column_index) {
+            Some(neighbor) => match neighbor {
+                Cell::Alive => 1,
+                Cell::Dead => 0,
             },
             None => 0,
         };
 
         // bottom right
-        neighbor_count += match self.cells.get(row_index + 1) {
-            Some(row) => match row.get(column_index + 1) {
-                Some(neighbor) => match neighbor {
-                    Cell::Alive => 1,
-                    Cell::Dead => 0,
-                },
-                None => 0,
-            }
+        neighbor_count += match self.get_cell(row_index + 1, column_index + 1) {
+            Some(neighbor) => match neighbor {
+                Cell::Alive => 1,
+                Cell::Dead => 0,
+            },
             None => 0,
         };
         
